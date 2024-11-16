@@ -1,41 +1,40 @@
 "use client";
+
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
 import Image from "next/image";
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { Separator } from "./ui/separator";
+import { Separator } from "@radix-ui/react-separator";
 import { navItems } from "@/constants";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
-import FileUploader from "./FileUploader";
+import { Button } from "@/components/ui/button";
+import FileUploader from "@/components/FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
 
 interface Props {
-  ownerId: string;
-  accuntId: string;
+  $id: string;
+  accountId: string;
   fullName: string;
   avatar: string;
   email: string;
 }
 
 const MobileNavigation = ({
-  ownerId,
-  accuntId,
+  $id: ownerId,
+  accountId,
   fullName,
   avatar,
   email,
 }: Props) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
   return (
     <header className="mobile-header">
       <Image
@@ -45,6 +44,7 @@ const MobileNavigation = ({
         height={52}
         className="h-auto"
       />
+
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger>
           <Image
@@ -71,8 +71,9 @@ const MobileNavigation = ({
             </div>
             <Separator className="mb-4 bg-light-200/20" />
           </SheetTitle>
-          <nav>
-            <ul>
+
+          <nav className="mobile-nav">
+            <ul className="mobile-nav-list">
               {navItems.map(({ url, name, icon }) => (
                 <Link key={name} href={url} className="lg:w-full">
                   <li
@@ -100,8 +101,8 @@ const MobileNavigation = ({
 
           <Separator className="my-5 bg-light-200/20" />
 
-          <div className="flex flex-col justify-between gap-5">
-            <FileUploader />
+          <div className="flex flex-col justify-between gap-5 pb-5">
+            <FileUploader ownerId={ownerId} accountId={accountId} />
             <Button
               type="submit"
               className="mobile-sign-out-button"
@@ -110,8 +111,8 @@ const MobileNavigation = ({
               <Image
                 src="/assets/icons/logout.svg"
                 alt="logo"
-                height={24}
                 width={24}
+                height={24}
               />
               <p>Logout</p>
             </Button>
