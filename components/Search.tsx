@@ -26,7 +26,7 @@ const Search = () => {
 
   useEffect(() => {
     const fetchFiles = async () => {
-      if (!debounceQuery.length === 0) {
+      if (debounceQuery.length === 0) {
         setResults([]);
         setOpen(false);
         return router.push(path.replace(searchParams.toString(), ""));
