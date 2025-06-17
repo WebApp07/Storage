@@ -24,8 +24,8 @@ export const Thumbnail = ({
       <Image
         src={isImage ? url : getFileIcon(extension, type)}
         alt="thumbnail"
-        width={100}
-        height={100}
+        width={200}
+        height={200}
         className={cn(
           "size-8 object-contain",
           imageClassName,
